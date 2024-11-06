@@ -1,19 +1,42 @@
 const apiKey = '53c344e6ba791494d1b35ad0f623a6f7';
-const movieId = '299536'; // Substitua pelo ID real do filme que você quer
-const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}&language=pt-BR`;
+const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=1`;
 
-fetch(url)
-  .then(response => response.json())
-  .then(data => {
-    // Exibe os vídeos (trailers) do filme
-    console.log(data);
-    if (data.results && data.results.length > 0) {
-      data.results.forEach(video => {
-        console.log(`Título do vídeo: ${video.name}`);
-        console.log(`URL do trailer: https://www.youtube.com/watch?v=${video.key}`);
-      });
-    } else {
-      console.log('Nenhum vídeo encontrado para este filme.');
+const iframe = document.querySelector('iframe');
+
+async function movePopulationMovie() {
+  
+  try {
+    const data = await fetch(url).then((r) => r.json())
+
+    if (data.results.length > 0) {
+      const randomMovie = data.results[Math.floor(Math.random() * data.results.length)]
+
+      const title = document.getElementById('movie-name')
+      title.textContent = randomMovie.title
+
+      const description = document.getElementById('description-movie')
+      description.textContent = randomMovie.overview
+
+
+      const movieId = randomMovie.id
+
+      const video = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}&language=pt-BR`).then((r) => r.json())
+
+      const youTubeUrl = video.results[0]
+      const key = youTubeUrl.key
+      const link = `https://www.youtube.com/embed/${key}?autoplay=1&loop=1&controls=0&mute=1&modestbranding=1&rel=0&showinfo=0&fs=0&iv_load_policy=3&enablejsapi=1&vq=hd1080`;
+      iframe.src = link
+
+      console.log(title.textContent);
     }
-  })
-  .catch(error => console.error('Erro ao buscar vídeos:', error));
+   
+    console.log(data);
+  } catch (e) {
+    console.log(`Erro ao executar código: ${e.message}`)
+    console.error(e);
+    
+  }
+}
+
+movePopulationMovie()
+

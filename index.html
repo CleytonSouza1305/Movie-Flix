@@ -10,36 +10,52 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <header id="header-home">
-    <div class="logo-header">
-      <a href="#"><img src="https://logopng.com.br/logos/netflix-94.png" alt="Logo da netflix"></a>
+  <div class="movie-background">
+    <iframe frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div> 
+  <div class="content-movie-infos">
+    <p id="movie-name"></p>
+    <p id="description-movie"></p>
+    <div class="buttons-div">
+      <button class="movie-buttons" id="see-movie"><i class="fa-solid fa-play"></i>Assistir</button>
+      <button class="movie-buttons" id="more-infos"><i class="fa-solid fa-circle-info"></i>Mais informações</button>
     </div>
-
+  </div>
+  <header id="header-home">
     <div class="primary-navigation">
+      <div class="logo-header">
+        <a href="#"><img src="https://logopng.com.br/logos/netflix-94.png" alt="Logo da netflix"></a>
+      </div>
+
       <ul class="navigation-principal">
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#"></a>Séries</li>
+        <li><a class="destacado" href="#">Inicio</a></li>
+        <li><a href="#">Séries</a></li>
         <li><a href="#">Filmes</a></li>
         <li><a href="#">Bombando</a></li>
         <li><a href="#">Minha lista</a></li>
-        <li><a href="#">Navegar por idioma</a></li>
+        <li><a href="#">Navegar por idiomas</a></li>
       </ul>
     </div>
 
     <div class="secondary-navigation">
-      <div class="search-icon">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </div>
-      <div class="bell-icon">
-        <i class="fa-regular fa-bell"></i>
-      </div>
-      <div class="bell-icon">
-        <img class="avatar-photo" src="https://i.pinimg.com/736x/7c/55/dd/7c55ddb59cdca8608c0550ca500cedf1.jpg" alt="Avatar de usuário">
-      </div>
+      <button class="btn-header" type="button">
+        <div class="search-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+      </button>
+      <button class="btn-header" type="button">
+        <div class="bell-icon">
+          <i class="fa-regular fa-bell"></i>
+        </div>
+      </button>
+        <div class="bell-icon">
+          <img class="avatar-photo" src="https://i.pinimg.com/736x/7c/55/dd/7c55ddb59cdca8608c0550ca500cedf1.jpg" alt="Avatar de usuário">
+        </div>
     </div>
   </header>
 
 
   <script src="./src/js/index.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>
