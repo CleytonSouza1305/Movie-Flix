@@ -14,21 +14,62 @@ async function movePopulationMovie() {
       const title = document.getElementById('movie-name')
       title.textContent = randomMovie.title
 
-      const description = document.getElementById('description-movie')
-      description.textContent = randomMovie.overview
+      const description = document.getElementById('description-movie');
+      const shortedDescription = randomMovie.overview.split(" ");
 
-
+      if (shortedDescription.length > 30) {
+        let descricao = ""; 
+        for (let i = 0; i < 30; i++) {
+          descricao += shortedDescription[i] + " ";
+        }
+        description.textContent = `${descricao.trim()}...`; 
+      } else {
+        description.textContent = randomMovie.overview;
+      }
+      
       const movieId = randomMovie.id
 
       const video = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}&language=pt-BR`).then((r) => r.json())
 
-      const youTubeUrl = video.results[0]
-      const key = youTubeUrl.key
-      const link = `https://www.youtube.com/embed/${key}?autoplay=1&loop=1&controls=0&mute=1&modestbranding=1&rel=0&showinfo=0&fs=0&iv_load_policy=3&enablejsapi=1&vq=hd1080`;
-      iframe.src = link
+      if (video.results.length > 0) {
+        const youTubeUrl = video.results[0]
+        const key = youTubeUrl.key
+        const link = `https://www.youtube.com/embed/${key}?autoplay=1&loop=1&controls=0&mute=1&modestbranding=1&rel=0&showinfo=0&fs=0&iv_load_policy=3&enablejsapi=1&vq=hd1080`;
+        iframe.src = link;
 
-      console.log(title.textContent);
+        iframe.onload = function() {
+          const player = new YT.Player(iframe, {
+            events: {
+              'onReady': function(event) {
+                event.target.playVideo();
+                event.target.unMute();    
+              },
+              'onStateChange': function(event) {
+                if (event.data === YT.PlayerState.ENDED) {
+                  event.target.seekTo(0);  
+                  event.target.playVideo()
+                }
+              },
+              'onError': function(event) {
+                console.error('Erro no player:', event.data);  
+              }
+            }
+          });
+        } 
+      } else {
+        const background = document.querySelector('.bg-image')
+
+        const id = video.id
+        const movie = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=pt-BR`).then((r) => r.json())
+
+        const posterPath = movie.poster_path;
+        const imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
+        background.style.backgroundImage = `url(${imageUrl})`
+        console.log(movie);
+        
+      }
     }
+    
    
     console.log(data);
   } catch (e) {

@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:wght@400;500;700&display=swap');
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -12,6 +12,9 @@ body {
   background-color: #000;
   width: 100vw;
   height: 100vh;
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
+  font-style: normal;
 }
 
 a {
@@ -111,6 +114,24 @@ header ul a.destacado {
   height: 100vh;
   overflow: hidden;
   background-color: #000;
+  filter: brightness(50%);
+}
+
+.dont-click-area {
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  z-index: 15;
+  width: 100vw;
+  height: 100vh;
+}
+
+.bg-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
 }
 
 iframe {
@@ -128,12 +149,13 @@ iframe {
   position: absolute;
   top: 40%;
   height: 200px;
-  z-index: 10;
+  z-index: 20;
   color: #f4f5f6;
   display: flex;
   align-items: self-start;
   justify-content: space-between;
   flex-direction: column;
+  padding-left: 3rem;
 }
 
 .content-movie-infos #movie-name {
@@ -141,13 +163,11 @@ iframe {
   font-weight: 500;
   letter-spacing: 2px;
   font-size: 5vw;
-  padding: 0 15px;
 }
 
 .content-movie-infos #description-movie {
   width: 80%; 
   max-width: 600px; 
-  padding: 12px 15px; 
   color: white;
   font-size: 1.2vw;
   line-height: 1.4;
@@ -172,16 +192,34 @@ iframe {
   border-radius: 8px;
 }
 
+.buttons-div {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 80%; 
+  max-width: 600px;
+  gap: 0.5rem;
+}
+
 .buttons-div button {
-  font-size: 1.2vw;
   line-height: 1.4px;
-  padding-left: 2rem;
-  padding-right: 2.4rem;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.buttons-div button i {
+  font-size: 1.3rem;
+  margin-right: 0.5rem;
 }
 
 .buttons-div button#see-movie {
   background-color: #f4f5f6;
-  columns: #000;
+  color: #000;
 }
 
 .buttons-div button#more-infos {
