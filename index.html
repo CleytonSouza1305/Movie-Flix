@@ -6,6 +6,7 @@
   <title>Movie</title>
 
   <link rel="stylesheet" href="src/css/index.css">
+  <link rel="stylesheet" href="src/css/responsive.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -23,20 +24,35 @@
       <button class="movie-buttons" id="more-infos"><i class="fa-solid fa-circle-info"></i>Mais informações</button>
     </div>
   </div>
-  <header id="header-home">
+  <header class="header-home">
     <div class="primary-navigation">
       <div class="logo-header">
         <a href="#"><img src="https://logopng.com.br/logos/netflix-94.png" alt="Logo da netflix"></a>
       </div>
 
       <ul class="navigation-principal">
-        <li><a class="destacado" href="#">Inicio</a></li>
-        <li><a href="#">Séries</a></li>
-        <li><a href="#">Filmes</a></li>
-        <li><a href="#">Bombando</a></li>
-        <li><a href="#">Minha lista</a></li>
-        <li><a href="#">Navegar por idiomas</a></li>
+        <li class="list-item"><a class="destacado" href="#">Inicio</a></li>
+        <li class="list-item"><a href="#">Séries</a></li>
+        <li class="list-item"><a href="#">Filmes</a></li>
+        <li class="list-item"><a href="#">Bombando</a></li>
+        <li class="list-item"><a href="#">Minha lista</a></li>
+        <li class="list-item"><a href="#">Navegar por idiomas</a></li>
+        
+        <li class="navegar">
+          <a href="#">Navegar <i class="fa fa-chevron-down"></i></a>
+          <div class="navigation-mobile">
+            <ul>
+              <li><a href="#">Inicio</a></li>
+              <li><a href="#">Séries</a></li>
+              <li><a href="#">Filmes</a></li>
+              <li><a href="#">Bombando</a></li>
+              <li><a href="#">Minha lista</a></li>
+              <li><a href="#">Navegar por idiomas</a></li>
+            </ul>
+          </div>
+        </li>
       </ul>
+      
     </div>
 
     <div class="secondary-navigation">

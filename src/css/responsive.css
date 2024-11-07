@@ -1,0 +1,132 @@
+@media (max-width: 930px) {
+  header.header-home ul .list-item {
+    display: none;
+  }
+
+  header.header-home ul .navegar {
+    display: inline-block;
+    color: #fff;
+    position: relative;
+  }
+
+  header.header-home ul .navegar .navigation-mobile {
+    display: none;
+  }
+  
+  header.header-home ul .navegar:hover .navigation-mobile,
+  header.header-home ul .navigation-mobile:hover {
+    display: block;
+  }
+  
+  .navigation-mobile li {
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 250px; 
+    padding: 10px 0;
+    font-size: 14px;  
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .list-item-mobile:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .list-item-mobile a {
+    display: block;
+    padding: 8px 16px;
+    margin-left: 0;
+  }
+  
+  header.header-home ul .navegar:hover .navigation-mobile {
+    display: block;
+  }
+
+  header.header-home ul .navegar .navigation-mobile {
+    display: none;
+    position: absolute; 
+    top: 100%;
+    left: -150%;
+    flex-direction: column;
+    width: 250px;
+    padding: 10px 0;
+    font-size: 14px;
+    z-index: 100;
+  }
+
+  header.header-home ul .navegar:hover .navigation-mobile {
+    display: block;
+  }
+
+  header.header-home ul .navigation-mobile:hover {
+    display: block;
+  }
+
+  .navigation-mobile ul {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navigation-mobile li {
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 250px;
+    padding: 10px 0;
+    font-size: 14px; 
+    text-align: center;
+    cursor: pointer;
+  }
+
+  /* Efeito de hover nos itens do dropdown */
+  .navigation-mobile li:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  .navigation-mobile li a {
+    display: block;
+    padding: 8px 16px;
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+@media (max-width: 430px) {
+  header.header-home {
+    padding: 0 25px;
+  }
+
+  header.header-home .secondary-navigation {
+    margin-right: 0;
+  }
+
+  .logo-header {
+    width: 60px;
+    margin-right: 5px;
+  }
+
+  .content-movie-infos {
+    padding-left: 1rem;
+    top: 24%;
+  }
+
+  .content-movie-infos #movie-name {
+    font-size: 1.6rem;
+    margin-top: 2rem;
+  }
+
+  .content-movie-infos #description-movie {
+    font-size: 0.6rem;
+  }
+  
+  .movie-background {
+    height: 50vh;
+  }
+
+  .buttons-div button {
+    padding: 0.4rem 0.7rem;
+    line-height: 1px;
+  }
+
+  .buttons-div button i {
+    font-size: 1rem;
+  }
+}
