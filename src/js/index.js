@@ -3,7 +3,7 @@ const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&langua
 
 const iframe = document.querySelector('iframe');
 
-async function movePopulationMovie() {
+async function morePopulationMovie() {
   
   try {
     const data = await fetch(url).then((r) => r.json())
@@ -69,15 +69,21 @@ async function movePopulationMovie() {
         
       }
     }
-    
-   
-    console.log(data);
   } catch (e) {
     console.log(`Erro ao executar código: ${e.message}`)
     console.error(e);
-    
   }
 }
 
-movePopulationMovie()
 
+async function seeTopRated() {
+  const topRated = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=pt-BR&page=1`).then((r) => r.json())
+
+  const moviesArr = topRated.results
+
+  
+  console.log(topRated.results);
+}
+
+morePopulationMovie()
+seeTopRated()
