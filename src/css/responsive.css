@@ -115,6 +115,7 @@
 
   .content-movie-infos #description-movie {
     font-size: 0.6rem;
+    max-width: 300px;
   }
   
   .movie-background {

@@ -63,7 +63,7 @@ async function morePopulationMovie() {
         const movie = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=pt-BR`).then((r) => r.json())
 
         const posterPath = movie.poster_path;
-        const imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
+        const imageUrl = `https://image.tmdb.org/t/p/w300${posterPath}`;
         background.style.backgroundImage = `url(${imageUrl})`
         console.log(movie);
         
@@ -77,12 +77,49 @@ async function morePopulationMovie() {
 
 
 async function seeTopRated() {
-  const topRated = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=pt-BR&page=1`).then((r) => r.json())
+  const topRated = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=pt-BR&page=1`)
+    .then((r) => r.json());
 
-  const moviesArr = topRated.results
+  let randomMovie = [];
+  const moviesArr = topRated.results;
 
-  
-  console.log(topRated.results);
+  while (randomMovie.length < 10) { 
+    const j = Math.floor(Math.random() * moviesArr.length);
+    const movie = moviesArr[j]; 
+
+    const exists = existMovie(randomMovie, movie.title);  
+
+    if (!exists) {
+      randomMovie.push(movie); 
+    }
+  }
+
+  console.log(randomMovie);
+
+  createContent('container-top-rated', randomMovie)
+}
+
+function existMovie(array, movieTitle) {
+  return array.some((m) => m.title === movieTitle);  
+}
+
+function createContent(containerName, movieArr) {
+  const content = document.querySelector(`.${containerName}`)
+  movieArr.forEach((movie) => {
+    const card = document.createElement('div')
+    card.classList.add('card')
+
+    const carroselContent = document.createElement('div')
+    carroselContent.classList.add('carrosel-card')
+    carroselContent.id = movie.id
+
+    const image = document.createElement('img')
+    image.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    image.classList.add('carrosel-movie')
+    carroselContent.append(image)
+    card.append(carroselContent)
+    content.append(card)
+  })
 }
 
 morePopulationMovie()
