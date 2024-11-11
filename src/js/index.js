@@ -76,8 +76,8 @@ async function morePopulationMovie() {
 }
 
 
-async function seeTopRated() {
-  const topRated = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=pt-BR&page=1`)
+async function seeTopRated(page) {
+  const topRated = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=pt-BR&page=${page}`)
     .then((r) => r.json());
 
   let randomMovie = [];
@@ -99,6 +99,26 @@ async function seeTopRated() {
   createContent('container-top-rated', randomMovie)
 }
 
+async function seeAnimatedMovie(page) {
+  const animeMovies = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=pt-BR&page=${page}&with_genres=16`).then((r) => r.json())
+
+  let randomMovie = [];
+  const moviesArr = animeMovies.results;
+
+  while (randomMovie.length < 10) { 
+    const j = Math.floor(Math.random() * moviesArr.length);
+    const movie = moviesArr[j]; 
+
+    const exists = existMovie(randomMovie, movie.title);  
+
+    if (!exists) {
+      randomMovie.push(movie); 
+    }
+  }
+
+  createContent('container-animation', randomMovie)
+}
+
 function existMovie(array, movieTitle) {
   return array.some((m) => m.title === movieTitle);  
 }
@@ -106,21 +126,60 @@ function existMovie(array, movieTitle) {
 function createContent(containerName, movieArr) {
   const content = document.querySelector(`.${containerName}`)
   movieArr.forEach((movie) => {
-    const card = document.createElement('div')
-    card.classList.add('card')
 
     const carroselContent = document.createElement('div')
-    carroselContent.classList.add('carrosel-card')
+    carroselContent.classList.add('carousel-item')
     carroselContent.id = movie.id
 
     const image = document.createElement('img')
     image.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     image.classList.add('carrosel-movie')
     carroselContent.append(image)
-    card.append(carroselContent)
-    content.append(card)
+    content.append(carroselContent)
   })
+
+const carouselTrack = document.querySelector('.carousel-track');
+const carouselItems = document.querySelectorAll('.carousel-item');
+const prevButton = document.querySelector('.prev');
+const nextButton = document.querySelector('.next');
+
+function moveCarousel() {
+  let currentIndex = 0; 
+  const itemWidth = carouselItems[0].offsetWidth + 15; 
+
+  carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+
+  if (currentIndex <= 0) {
+    prevButton.disabled = true;
+  } else {
+    prevButton.disabled = false;
+  }
+
+  if (currentIndex >= 6) {
+    nextButton.disabled = true;
+  } else {
+    nextButton.disabled = false;
+  }
+}
+
+prevButton.addEventListener('click', () => {
+  if (currentIndex > 0) {
+    currentIndex--; 
+    moveCarousel();
+  }
+});
+
+nextButton.addEventListener('click', () => {
+  if (currentIndex < carouselItems.length - 1) {
+    currentIndex++; 
+    moveCarousel();
+  }
+});
+
+moveCarousel();
 }
 
 morePopulationMovie()
-seeTopRated()
+seeTopRated(1)
+seeAnimatedMovie(1)
+
