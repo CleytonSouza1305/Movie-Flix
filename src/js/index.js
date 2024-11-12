@@ -94,9 +94,8 @@ async function seeTopRated(page) {
     }
   }
 
-  console.log(randomMovie);
-
-  createContent('container-top-rated', randomMovie)
+  createContent('container-top-rated', randomMovie, 'top-rated-cards')
+  moveCarousel('container-top-rated', 'top-rated-cards', 'prev-top-rated', 'next-top-rated');
 }
 
 async function seeAnimatedMovie(page) {
@@ -116,19 +115,41 @@ async function seeAnimatedMovie(page) {
     }
   }
 
-  createContent('container-animation', randomMovie)
+  createContent('container-animation', randomMovie, 'animated-cards')
+  moveCarousel('container-animation', 'animated-cards', 'prev-animated-card', 'next-animated-card');
+}
+
+async function seeThrillerMovie(page) {
+  const thrillerMovie = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=pt-BR&page=${page}&with_genres=27`).then((r) => r.json())
+
+  let randomMovie = [];
+  const moviesArr = thrillerMovie.results;
+
+  while (randomMovie.length < 10) { 
+    const j = Math.floor(Math.random() * moviesArr.length);
+    const movie = moviesArr[j]; 
+
+    const exists = existMovie(randomMovie, movie.title);  
+
+    if (!exists) {
+      randomMovie.push(movie); 
+    }
+  }
+
+  createContent('container-thriller', randomMovie, 'animated-thriller')
+  moveCarousel('container-thriller', 'animated-thriller', 'prev-thriller-card', 'next-thriller-card');
 }
 
 function existMovie(array, movieTitle) {
   return array.some((m) => m.title === movieTitle);  
 }
 
-function createContent(containerName, movieArr) {
+function createContent(containerName, movieArr, carouselClass) {
   const content = document.querySelector(`.${containerName}`)
   movieArr.forEach((movie) => {
 
     const carroselContent = document.createElement('div')
-    carroselContent.classList.add('carousel-item')
+    carroselContent.classList.add('carousel-item', carouselClass)
     carroselContent.id = movie.id
 
     const image = document.createElement('img')
@@ -137,49 +158,43 @@ function createContent(containerName, movieArr) {
     carroselContent.append(image)
     content.append(carroselContent)
   })
-
-const carouselTrack = document.querySelector('.carousel-track');
-const carouselItems = document.querySelectorAll('.carousel-item');
-const prevButton = document.querySelector('.prev');
-const nextButton = document.querySelector('.next');
-
-function moveCarousel() {
-  let currentIndex = 0; 
-  const itemWidth = carouselItems[0].offsetWidth + 15; 
-
-  carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-
-  if (currentIndex <= 0) {
-    prevButton.disabled = true;
-  } else {
-    prevButton.disabled = false;
-  }
-
-  if (currentIndex >= 6) {
-    nextButton.disabled = true;
-  } else {
-    nextButton.disabled = false;
-  }
 }
 
-prevButton.addEventListener('click', () => {
-  if (currentIndex > 0) {
-    currentIndex--; 
-    moveCarousel();
-  }
-});
+function moveCarousel(container, carouselItem, prevBtn, nextBtn) {
+  const carouselTrack = document.querySelector(`.${container}`);
+  const carouselItems = document.querySelectorAll(`.${carouselItem}`);
+  const prevButton = document.querySelector(`.${prevBtn}`);
+  const nextButton = document.querySelector(`.${nextBtn}`);
 
-nextButton.addEventListener('click', () => {
-  if (currentIndex < carouselItems.length - 1) {
-    currentIndex++; 
-    moveCarousel();
-  }
-});
+  let currentIndex = 0;
+  const itemWidth = carouselItems[0].offsetWidth + 15;
 
-moveCarousel();
+  function updateCarouselPosition() {
+    carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+    prevButton.disabled = currentIndex <= 0;
+    nextButton.disabled = currentIndex >= 6;
+  }
+
+  updateCarouselPosition();
+
+  prevButton.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateCarouselPosition();
+    }
+  });
+
+  nextButton.addEventListener('click', () => {
+    if (currentIndex <= 6) {
+      currentIndex++;
+      updateCarouselPosition();
+    }
+  });
 }
+
 
 morePopulationMovie()
 seeTopRated(1)
 seeAnimatedMovie(1)
+seeThrillerMovie(1)
 

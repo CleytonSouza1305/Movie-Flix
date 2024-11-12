@@ -128,6 +128,31 @@
   }
 
   .buttons-div button i {
+     font-size: 1rem;
+  }
+
+  .top-rated {
+    margin-top: 10px;
+  }
+
+  .prev,
+  .next {
+    width: 50px;
+  }
+
+  .prev {
+    left: 10px;
+  }
+  
+  .next {
+    right: 30px;
+  }
+
+  .carousel-item {
+    aspect-ratio: 20 / 10;
+  }  
+
+  .content-title {
     font-size: 1rem;
   }
 }
