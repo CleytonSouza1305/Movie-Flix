@@ -76,7 +76,6 @@
     cursor: pointer;
   }
 
-  /* Efeito de hover nos itens do dropdown */
   .navigation-mobile li:hover {
     background-color: rgba(0, 0, 0, 0.7);
   }
@@ -86,6 +85,11 @@
     padding: 8px 16px;
     color: #fff;
     text-decoration: none;
+  }
+
+  .prev,
+  .next {
+    display: none;
   }
 }
 
@@ -132,27 +136,24 @@
   }
 
   .top-rated {
-    margin-top: 10px;
+    margin-top: 25px;
   }
 
   .prev,
   .next {
-    width: 50px;
+    display: none;
   }
 
-  .prev {
-    left: 10px;
+  .carousel {
+    width: 100%;
+    overflow-x: auto; 
+    scroll-snap-type: x mandatory; 
+    -webkit-overflow-scrolling: touch; 
+    display: flex;
   }
   
-  .next {
-    right: 30px;
-  }
-
   .carousel-item {
-    aspect-ratio: 20 / 10;
-  }  
-
-  .content-title {
-    font-size: 1rem;
+    flex-shrink: 0;
+    scroll-snap-align: start;
   }
 }
