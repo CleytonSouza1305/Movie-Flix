@@ -167,7 +167,7 @@ function moveCarousel(container, carouselItem, prevBtn, nextBtn) {
   const nextButton = document.querySelector(`.${nextBtn}`);
 
   let currentIndex = 0;
-  const itemWidth = carouselItems[0].offsetWidth + 15;
+  const itemWidth = carouselItems[0].offsetWidth + 30;
 
   function updateCarouselPosition() {
     carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
