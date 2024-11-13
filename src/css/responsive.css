@@ -87,9 +87,14 @@
     text-decoration: none;
   }
 
-  .prev,
   .next {
-    display: none;
+    right: 27px;
+  }
+
+  .next,
+  .prev {
+    height: 60px;
+    font-size: 1.5rem;
   }
 }
 
@@ -136,28 +141,11 @@
   }
 
   .top-rated {
-    margin-top: 25px;
-  }
-
-  .prev,
-  .next {
-    display: none;
+    margin-top: 35px;
   }
 
   main {
     overflow: hidden;
-  }
-
-  .carousel {
-    width: 100%;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory; 
-    -webkit-overflow-scrolling: touch; 
-    display: flex;
-  }
-
-  .carousel-item {
-    scroll-snap-align: start;
   }
 
   .content-title {
