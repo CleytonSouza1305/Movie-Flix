@@ -65,8 +65,6 @@ async function morePopulationMovie() {
         const posterPath = movie.poster_path;
         const imageUrl = `https://image.tmdb.org/t/p/w300${posterPath}`;
         background.style.backgroundImage = `url(${imageUrl})`
-        console.log(movie);
-        
       }
     }
   } catch (e) {
@@ -74,7 +72,6 @@ async function morePopulationMovie() {
     console.error(e);
   }
 }
-
 
 async function seeTopRated(page) {
   const topRated = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=pt-BR&page=${page}`)
@@ -157,9 +154,6 @@ async function seeComedyMovie(page) {
     }
   }
 
-  console.log(moviesArr);
-  console.log(randomMovie);
-  
   createContent('container-comedy', randomMovie, 'comedy-movie')
   moveCarousel('container-comedy', 'comedy-movie', 'prev-comedy-card', 'next-comedy-card');
 }
@@ -193,9 +187,6 @@ function moveCarousel(container, carouselItem, prevBtn, nextBtn) {
   let currentIndex = 0;
   const itemWidth = carouselItems[0].offsetWidth + 30;
 
-  console.log(window.innerWidth );
-  
-
   function updateCarouselPosition() {
     carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
     prevButton.disabled = currentIndex <= 0;
@@ -219,10 +210,21 @@ function moveCarousel(container, carouselItem, prevBtn, nextBtn) {
   });
 }
 
-
 morePopulationMovie()
 seeTopRated(1)
 seeAnimatedMovie(1)
 seeThrillerMovie(1)
 seeComedyMovie(1)
 
+const carouselItemsArr = document.querySelectorAll('.carousel-item')
+  
+if (carouselItemsArr) {
+  carouselItemsArr.forEach((card) => {
+    card.addEventListener('click', async (ev) => {
+      const movie = await fetch(`https://api.themoviedb.org/3/movie/${ev.currentTarget.id}?api_key=${apiKey}&language=pt-BR`).then((r) => r.json())
+      
+      console.log(movie);
+      
+    })
+  })
+}
