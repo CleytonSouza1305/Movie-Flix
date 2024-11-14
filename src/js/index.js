@@ -140,6 +140,30 @@ async function seeThrillerMovie(page) {
   moveCarousel('container-thriller', 'animated-thriller', 'prev-thriller-card', 'next-thriller-card');
 }
 
+async function seeComedyMovie(page) {
+  const comedyMovie = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=pt-BR&page=${page}&with_genres=35`).then((r) => r.json())
+
+  let randomMovie = [];
+  const moviesArr = comedyMovie.results;
+
+  while (randomMovie.length < 10) { 
+    const j = Math.floor(Math.random() * moviesArr.length);
+    const movie = moviesArr[j]; 
+
+    const exists = existMovie(randomMovie, movie.title);  
+
+    if (!exists) {
+      randomMovie.push(movie); 
+    }
+  }
+
+  console.log(moviesArr);
+  console.log(randomMovie);
+  
+  createContent('container-comedy', randomMovie, 'comedy-movie')
+  moveCarousel('container-comedy', 'comedy-movie', 'prev-comedy-card', 'next-comedy-card');
+}
+
 function existMovie(array, movieTitle) {
   return array.some((m) => m.title === movieTitle);  
 }
@@ -169,6 +193,9 @@ function moveCarousel(container, carouselItem, prevBtn, nextBtn) {
   let currentIndex = 0;
   const itemWidth = carouselItems[0].offsetWidth + 30;
 
+  console.log(window.innerWidth );
+  
+
   function updateCarouselPosition() {
     carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
     prevButton.disabled = currentIndex <= 0;
@@ -197,4 +224,5 @@ morePopulationMovie()
 seeTopRated(1)
 seeAnimatedMovie(1)
 seeThrillerMovie(1)
+seeComedyMovie(1)
 
