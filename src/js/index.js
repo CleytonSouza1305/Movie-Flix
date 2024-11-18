@@ -173,7 +173,19 @@ function createContent(containerName, movieArr, carouselClass) {
     const image = document.createElement('img')
     image.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     image.classList.add('carrosel-movie')
-    carroselContent.append(image)
+
+    const movieHoverContent = document.createElement('div')
+    movieHoverContent.classList.add('display')
+    movieHoverContent.classList.add('content-info')
+
+    const divImgHover = document.createElement('div')
+    divImgHover.classList.add('div-hover')
+    const imgHover = document.createElement('img')
+    const divButtons = document.createElement('div')
+    divButtons.classList.add('div-hover-buttons')
+
+    movieHoverContent.append(divImgHover, imgHover, divButtons)
+    carroselContent.append(image, movieHoverContent)
     content.append(carroselContent)
   })
 }
@@ -211,20 +223,38 @@ function moveCarousel(container, carouselItem, prevBtn, nextBtn) {
 }
 
 morePopulationMovie()
-seeTopRated(1)
-seeAnimatedMovie(1)
-seeThrillerMovie(1)
-seeComedyMovie(1)
 
-const carouselItemsArr = document.querySelectorAll('.carousel-item')
-  
-if (carouselItemsArr) {
-  carouselItemsArr.forEach((card) => {
-    card.addEventListener('click', async (ev) => {
-      const movie = await fetch(`https://api.themoviedb.org/3/movie/${ev.currentTarget.id}?api_key=${apiKey}&language=pt-BR`).then((r) => r.json())
-      
-      console.log(movie);
-      
-    })
-  })
+async function createMovieCarousels() {
+  await seeTopRated(1);
+  await seeAnimatedMovie(1);
+  await seeThrillerMovie(1);
+  await seeComedyMovie(1);
+
+  const carouselItemsArr = document.querySelectorAll('.carousel-item');
+  if (carouselItemsArr) {
+    carouselItemsArr.forEach((card) => {
+      card.addEventListener('mouseover', async (ev) => {
+        const cardMovie = ev.currentTarget
+        const content = cardMovie.querySelector(`.content-info`)
+
+        const contentInfo = document.querySelectorAll(`.content-info`)
+        contentInfo.forEach((content) => {
+          if
+        })
+
+        const movie = await fetch(`https://api.themoviedb.org/3/movie/${cardMovie.id}?api_key=${apiKey}&language=pt-BR`).then((r) => r.json());
+        
+        content.classList.remove('display')
+      });
+
+      card.addEventListener('mouseleave', (ev) => {
+        const cardMovie = ev.currentTarget
+        const content = cardMovie.querySelector(`.content-info`)
+
+        content.classList.add('display')
+      })
+    });
+  }
 }
+
+createMovieCarousels()
