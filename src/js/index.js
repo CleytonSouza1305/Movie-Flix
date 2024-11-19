@@ -231,30 +231,36 @@ async function createMovieCarousels() {
   await seeComedyMovie(1);
 
   const carouselItemsArr = document.querySelectorAll('.carousel-item');
-  if (carouselItemsArr) {
-    carouselItemsArr.forEach((card) => {
-      card.addEventListener('mouseover', async (ev) => {
-        const cardMovie = ev.currentTarget
-        const content = cardMovie.querySelector(`.content-info`)
+  // if (carouselItemsArr) {
+  //   carouselItemsArr.forEach((card) => {
+  //     card.addEventListener('mouseover', async (ev) => {
+  //       const cardMovie = ev.currentTarget
+  //       const content = cardMovie.querySelector(`.content-info`)
 
-        const contentInfo = document.querySelectorAll(`.content-info`)
-        contentInfo.forEach((content) => {
-          if
-        })
+  //       const contentInfo = document.querySelectorAll(`.content-info`)
+  //       contentInfo.forEach((content) => {
+  //         if (!content.classList.contains('display')) {
+  //           content.classList.add('display')
+  //         }
+  //       })
 
-        const movie = await fetch(`https://api.themoviedb.org/3/movie/${cardMovie.id}?api_key=${apiKey}&language=pt-BR`).then((r) => r.json());
+  //       const movie = await fetch(`https://api.themoviedb.org/3/movie/${cardMovie.id}?api_key=${apiKey}&language=pt-BR`).then((r) => r.json());
         
-        content.classList.remove('display')
-      });
+  //       content.classList.remove('display')
+  //     });
 
-      card.addEventListener('mouseleave', (ev) => {
-        const cardMovie = ev.currentTarget
-        const content = cardMovie.querySelector(`.content-info`)
+  //     card.addEventListener('mouseleave', (ev) => {
+  //       const cardMovie = ev.currentTarget
+  //       const content = document.querySelectorAll(`.content-info`)
 
-        content.classList.add('display')
-      })
-    });
-  }
+  //       content.forEach((content) => {
+  //         if (content.classList.contains('display')) {
+  //           content.classList.remove('display');
+  //         }
+  //       });
+  //     })
+  //   });
+  // }
 }
 
 createMovieCarousels()

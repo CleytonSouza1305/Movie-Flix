@@ -313,6 +313,12 @@ iframe {
   left: -50%;
   height: 300px;
   width: 500px;
+  box-shadow: 0 0 10px 2px #141414;
+  transition: ease-in-out 200ms;
+}
+
+.carousel-item:hover .content-info.display {
+  display: block;
 }
 
 .prev, 
